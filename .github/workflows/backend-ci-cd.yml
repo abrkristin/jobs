@@ -10,7 +10,7 @@ on:
 
 jobs:
   run-linters:
-    name: lint
+    name: Run linters
     runs-on: ubuntu-latest
     steps:
       - name: Check out Git repository
@@ -35,7 +35,7 @@ jobs:
   test:
     name: Run Tests
     runs-on: ubuntu-latest
-    needs: lint
+    needs: run-linters
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
