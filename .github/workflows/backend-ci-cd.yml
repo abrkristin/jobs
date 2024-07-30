@@ -33,25 +33,25 @@ jobs:
           flake8: true
           
   test:
-    name: Run Tests
+    name: Unit Tests
     runs-on: ubuntu-latest
     needs: lint
+    strategy:
+      matrix:
+        node-version: [16.x]
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
         with:
-          python-version: '3.12.4'
+          node-version: ${{ matrix.node-version }}
       
-      - name: Install dependencies
-        run: |
-          pip install -r backend/requirements.txt
-      
+      - name: npm install
+        run: npm ci      
       - name: Run tests
-        run: |
-          pytest
+        run: npm test
 
   build:
     name: Build Docker Image
