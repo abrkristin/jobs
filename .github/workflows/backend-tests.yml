@@ -27,25 +27,7 @@ jobs:
       - name: Add sample test
         run: |
           mkdir -p backend/tests
-          echo 'import unittest
-
-class TestLibrary(unittest.TestCase):
-    def test_upper(self):
-        self.assertEqual("foo".upper(), "FOO")
-    
-    def test_isupper(self):
-        self.assertTrue("FOO".isupper())
-        self.assertFalse("Foo".isupper())
-    
-    def test_split(self):
-        s = "hello world"
-        self.assertEqual(s.split(), ["hello", "world"])
-        with self.assertRaises(TypeError):
-            s.split(2)
-
-if __name__ == "__main__":
-    unittest.main()
-' > backend/tests/test_library.py
+          printf 'import unittest\n\nclass TestLibrary(unittest.TestCase):\n    def test_upper(self):\n        self.assertEqual("foo".upper(), "FOO")\n\n    def test_isupper(self):\n        self.assertTrue("FOO".isupper())\n        self.assertFalse("Foo".isupper())\n\n    def test_split(self):\n        s = "hello world"\n        self.assertEqual(s.split(), ["hello", "world"])\n        with self.assertRaises(TypeError):\n            s.split(2)\n\nif __name__ == "__main__":\n    unittest.main()\n' > backend/tests/test_library.py
       
       - name: Run tests
         run: |
