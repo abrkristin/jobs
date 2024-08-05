@@ -51,7 +51,7 @@ jobs:
       - name: Install dependencies
         run: pip install pytest
       
-      - name: Add sample test
+      - name: Add unit tests
         run: |
           mkdir -p backend/tests
           printf 'import unittest\n\nclass TestLibrary(unittest.TestCase):\n    def test_upper(self):\n        self.assertEqual("foo".upper(), "FOO")\n\n    def test_isupper(self):\n        self.assertTrue("FOO".isupper())\n        self.assertFalse("Foo".isupper())\n\n    def test_split(self):\n        s = "hello world"\n        self.assertEqual(s.split(), ["hello", "world"])\n        with self.assertRaises(TypeError):\n            s.split(2)\n\nif __name__ == "__main__":\n    unittest.main()\n' > backend/tests/test_library.py
@@ -61,7 +61,7 @@ jobs:
           echo "Running pytest..."
           pytest backend/tests
 
-  build:
+  backend-build:
     name: Build Backend Docker Image
     runs-on: ubuntu-latest
     needs: [backend-lint, backend-tests]
