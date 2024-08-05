@@ -81,4 +81,4 @@ jobs:
             ${{ runner.os }}-docker-
       
       - name: Build Docker image
-        run: docker build -t backend-app backend/Dockerfile
+        run: docker build -t backend-app jobs/backend/Dockerfile
