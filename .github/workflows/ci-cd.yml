@@ -33,3 +33,21 @@ jobs:
       
       - name: Run Flake8
         run: flake8 .
+
+  backend-tests:
+    name: Backend Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.8'
+      
+      - name: Install dependencies
+        run: pip install pytest
+      
+      - name: Run tests
+        run: pytest
