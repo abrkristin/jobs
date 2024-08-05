@@ -22,10 +22,12 @@ jobs:
           node-version: '16'
       
       - name: Install dependencies
+        working-directory: frontend
         run: npm install
       
       - name: Run ESLint
-        run: npx eslint frontend
+        working-directory: frontend
+        run: npx eslint .
 
   test:
     name: Run Unit Tests
@@ -41,9 +43,11 @@ jobs:
           node-version: '16'
       
       - name: Install dependencies
+        working-directory: frontend
         run: npm install
       
       - name: Run Jest tests
+        working-directory: frontend
         run: npm test
 
   build:
