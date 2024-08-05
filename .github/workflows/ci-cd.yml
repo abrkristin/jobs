@@ -52,17 +52,16 @@ jobs:
       - name: Add sample test
         run: |
           mkdir -p backend/tests
-          cat <<EOF > backend/tests/test_library.py
-import unittest
-
+          echo "import unittest
+          
 class TestLibrary(unittest.TestCase):
     def test_upper(self):
         self.assertEqual('foo'.upper(), 'FOO')
-
+    
     def test_isupper(self):
         self.assertTrue('FOO'.isupper())
         self.assertFalse('Foo'.isupper())
-
+    
     def test_split(self):
         s = 'hello world'
         self.assertEqual(s.split(), ['hello', 'world'])
@@ -71,8 +70,9 @@ class TestLibrary(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-EOF
+" > backend/tests/test_library.py
       
       - name: Run tests
-        run: pytest backend/tests
-
+        run: |
+          echo "Running pytest..."
+          pytest backend/tests
