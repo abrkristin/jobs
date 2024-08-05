@@ -49,5 +49,11 @@ jobs:
       - name: Install dependencies
         run: pip install pytest
       
+      - name: Add sample test
+        run: |
+          mkdir -p backend/tests
+          echo "import unittest\nfrom backend.app import add\n\nclass TestApp(unittest.TestCase):\n    def test_add(self):\n        self.assertEqual(add(1, 2), 3)\n        self.assertEqual(add(-1, 1), 0)\n        self.assertEqual(add(0, 0), 0)\n\nif __name__ == '__main__':\n    unittest.main()" > backend/tests/test_app.py
+      
       - name: Run tests
-        run: pytest
+        run: pytest backend/tests
+
