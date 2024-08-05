@@ -48,7 +48,8 @@ jobs:
       
       - name: Install dependencies
         run: pip install pytest
-            - name: Add sample test
+      
+      - name: Add sample test
         run: |
           mkdir -p backend/tests
           cat <<EOF > backend/tests/test_library.py
@@ -70,7 +71,8 @@ class TestLibrary(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-EOF   
+EOF
+      
       - name: Run tests
         run: pytest backend/tests
 
