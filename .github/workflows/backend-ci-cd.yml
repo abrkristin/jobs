@@ -30,10 +30,10 @@ jobs:
           echo "extend-ignore = E402" >> .flake8
           
       - name: Run Black
-        run: black .
+        run: black ./backend
       
       - name: Run Flake8
-        run: flake8 .
+        run: flake8 ./backend
 
   backend-tests:
     name: Backend Unit Tests
