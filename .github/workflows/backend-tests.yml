@@ -1,0 +1,53 @@
+name: Backend Unit Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  tests:
+    name: Backend Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.8'
+      
+      - name: Install dependencies
+        run: pip install pytest
+      
+      - name: Add sample test
+        run: |
+          mkdir -p backend/tests
+          echo "import unittest
+          
+class TestLibrary(unittest.TestCase):
+    def test_upper(self):
+        self.assertEqual('foo'.upper(), 'FOO')
+    
+    def test_isupper(self):
+        self.assertTrue('FOO'.isupper())
+        self.assertFalse('Foo'.isupper())
+    
+    def test_split(self):
+        s = 'hello world'
+        self.assertEqual(s.split(), ['hello', 'world'])
+        with self.assertRaises(TypeError):
+            s.split(2)
+
+if __name__ == '__main__':
+    unittest.main()
+" > backend/tests/test_library.py
+      
+      - name: Run tests
+        run: |
+          echo "Running pytest..."
+          pytest backend/tests
