@@ -1,5 +1,4 @@
-name: Backend Unit Tests
-
+name: Backend CI/CD
 on:
   push:
     branches:
@@ -9,8 +8,36 @@ on:
       - main
 
 jobs:
+  backend-lint:
+    name: Backend Linting
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.8'
+      
+      - name: Install dependencies
+        run: pip install black flake8
+        
+      - name: Create .flake8 configuration file
+        run: |
+          echo "[flake8]" > .flake8
+          echo "max-line-length = 200" >> .flake8
+          echo "extend-ignore = E402" >> .flake8
+          
+      - name: Run Black
+        run: black .
+      
+      - name: Run Flake8
+        run: flake8 .
+
   tests:
     name: Backend Unit Tests
+    needs: backend-lint
     runs-on: ubuntu-latest
     steps:
       - name: Check out Git repository
@@ -33,3 +60,4 @@ jobs:
         run: |
           echo "Running pytest..."
           pytest backend/tests
+
