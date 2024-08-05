@@ -52,7 +52,7 @@ jobs:
       - name: Add sample test
         run: |
           mkdir -p backend/tests
-          echo "import unittest\nfrom backend.app import add\n\nclass TestApp(unittest.TestCase):\n    def test_add(self):\n        self.assertEqual(add(1, 2), 3)\n        self.assertEqual(add(-1, 1), 0)\n        self.assertEqual(add(0, 0), 0)\n\nif __name__ == '__main__':\n    unittest.main()" > backend/tests/test_app.py
+          echo "import unittest\n\nclass TestLibrary(unittest.TestCase):\n    def test_upper(self):\n        self.assertEqual('foo'.upper(), 'FOO')\n\n    def test_isupper(self):\n        self.assertTrue('FOO'.isupper())\n        self.assertFalse('Foo'.isupper())\n\n    def test_split(self):\n        s = 'hello world'\n        self.assertEqual(s.split(), ['hello', 'world'])\n        with self.assertRaises(TypeError):\n            s.split(2)\n\nif __name__ == '__main__':\n    unittest.main()" > backend/tests/test_library.py
       
       - name: Run tests
         run: pytest backend/tests
