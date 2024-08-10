@@ -32,22 +32,24 @@ jobs:
   test:
     name: Run Unit Tests
     runs-on: ubuntu-latest
-    container:
-      image: node:16    
     needs: lint
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v3
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
       - name: Install dependencies
         run: npm install
         working-directory: frontend
-        
-      - name: Run tests
-        run: npm test
+
+      - name: Run Vitest tests
+        run: npx vitest run
         working-directory: frontend
         
-
   build:
     name: Build Docker Image
     runs-on: ubuntu-latest
