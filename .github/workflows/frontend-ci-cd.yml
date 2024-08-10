@@ -42,7 +42,7 @@ jobs:
 
       - name: Run tests using Docker image
         run: |
-          docker run --rm -v $(pwd)/frontend:/app -w /app node:18 npm test
+          docker run --rm -v $(pwd)/frontend:/app -w /app node:18 bash -c "npm install && npm test"
         
   build:
     name: Build Docker Image
