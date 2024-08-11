@@ -27,7 +27,7 @@ jobs:
       
       - name: Run ESLint
         working-directory: frontend
-        run: npx eslint ./frontend
+        run: npx eslint .
 
   frontend-test:
     name: Run Unit Tests
@@ -37,14 +37,17 @@ jobs:
       - name: Check out Git repository
         uses: actions/checkout@v3
 
-      - name: Set up Docker
-        uses: docker/setup-buildx-action@v2
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '18'
 
-      - name: Run tests using Docker image
-        run: |
-          docker run --rm -v $(pwd)/frontend:/app -w /app node:18 bash -c \
-          "echo '{\"name\": \"frontend\", \"version\": \"0.0.0\", \"scripts\": {\"test\": \"echo 'No tests configured'\"}, \"devDependencies\": {\"vitest\": \"^2.0.5\"}}' > package.json && cat package.json && npm install && npm test"
-        
+    - name: Install Lighthouse CI
+      run: npm install -g @lhci/cli@0.7.x
+
+    - name: Run Lighthouse CI
+      run: lhci autorun --upload.target=temporary-public-storage        
+      
   build:
     name: Build Docker Image
     runs-on: ubuntu-latest
