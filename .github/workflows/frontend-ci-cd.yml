@@ -37,16 +37,20 @@ jobs:
       - name: Check out Git repository
         uses: actions/checkout@v3
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '18'
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
 
-    - name: Install Lighthouse CI
-      run: npm install -g @lhci/cli@0.7.x
+      - name: Install dependencies
+        working-directory: frontend
+        run: npm install
 
-    - name: Run Lighthouse CI
-      run: lhci autorun --upload.target=temporary-public-storage        
+      - name: Install Lighthouse CI
+        run: npm install -g @lhci/cli@0.7.x
+
+      - name: Run Lighthouse CI
+        run: lhci autorun --upload.target=temporary-public-storage        
       
   build:
     name: Build Docker Image
