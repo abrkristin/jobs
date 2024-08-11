@@ -27,7 +27,7 @@ jobs:
       
       - name: Run ESLint
         working-directory: frontend
-        run: npx eslint .
+        run: npx eslint ./frontend
 
   frontend-test:
     name: Run Unit Tests
