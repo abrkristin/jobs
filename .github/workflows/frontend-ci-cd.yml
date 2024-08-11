@@ -40,7 +40,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '16'
 
       - name: Install dependencies
         working-directory: frontend
@@ -50,7 +50,7 @@ jobs:
         run: npm install -g @lhci/cli@0.7.x
 
       - name: Run Lighthouse CI
-        run: lhci autorun --collect.staticDistDir=frontend/dist --upload.target=temporary-public-storage
+        run: lhci autorun --collect.staticDistDir=frontend/build --upload.target=temporary-public-storage
       
   build:
     name: Build Docker Image
