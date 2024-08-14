@@ -4,6 +4,10 @@ module.exports = {
     '^.+\\.js$': 'babel-jest',
   },
   moduleFileExtensions: ['js', 'vue', 'json'],
-  transformIgnorePatterns: ['<rootDir>/node_modules/'],
-  testEnvironment: 'jsdom',
+  testEnvironment: 'jest-environment-jsdom',
+  testMatch: [
+    '**/tests/**/*.js',
+    '**/?(*.)+(spec|test).js'
+  ],
+  testPathIgnorePatterns: ['/node_modules/'],
 };
