@@ -48,7 +48,7 @@ jobs:
 
       - name: Install test dependencies
         working-directory: frontend
-        run: npm install --save-dev jest @vue/test-utils vue-jest babel-jest
+        run: npm install --save-dev jest @vue/test-utils vue-jest@next babel-jest --legacy-peer-deps
 
       - name: Run Jest tests
         working-directory: frontend
