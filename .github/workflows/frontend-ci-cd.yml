@@ -28,30 +28,32 @@ jobs:
       - name: Run ESLint
         working-directory: frontend
         run: npx eslint .
-
+  
   frontend-test:
-    name: Run Unit Tests
-    runs-on: ubuntu-latest
-    needs: frontend-lint
-    steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v3
+  name: Run Unit Tests
+  runs-on: ubuntu-latest
+  needs: frontend-lint
+  steps:
+    - name: Check out Git repository
+      uses: actions/checkout@v3
+   
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+   
+    - name: Install dependencies
+      working-directory: frontend
+      run: npm install
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
+    - name: Install test dependencies
+      working-directory: frontend
+      run: npm install --save-dev jest @vue/test-utils vue-jest babel-jest
 
-      - name: Install dependencies
-        working-directory: frontend
-        run: npm install
-
-      - name: Install Lighthouse CI
-        run: npm install -g @lhci/cli@0.7.x
-
-      - name: Run Lighthouse CI
-        run: lhci autorun --collect.staticDistDir=frontend/build --upload.target=temporary-public-storage
-      
+    - name: Run Jest tests
+      working-directory: frontend
+      run: npx jest
+    
   build:
     name: Build Docker Image
     runs-on: ubuntu-latest
