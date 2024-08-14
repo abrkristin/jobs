@@ -5,9 +5,6 @@ module.exports = {
   },
   moduleFileExtensions: ['js', 'vue', 'json'],
   testEnvironment: 'jest-environment-jsdom',
-  testMatch: [
-    '**/tests/**/*.js',
-    '**/?(*.)+(spec|test).js'
-  ],
+  testMatch: '**/?(*.)+(spec|test).[jt]s?(x)',
   testPathIgnorePatterns: ['/node_modules/'],
 };
